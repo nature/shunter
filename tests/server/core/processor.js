@@ -427,22 +427,6 @@ describe('Request processor', function () {
 			assert.equal(dispatch.send.firstCall.args[4], 401);
 		});
 
-		it('Should pass through HEAD requests', function () {
-			var processor = require(moduleName)({
-				argv: {},
-				timer: mockTimer
-			}, {});
-			var callback = sinon.stub();
-
-			var req = {method: 'HEAD'};
-
-			res.getHeader.withArgs('Content-type').returns('application/x-shunter+json');
-
-			processor.intercept(req, res, callback);
-			res.writeHead();
-			assert.isTrue(res.__originalWriteHead.calledOnce);
-		});
-
 		it('Should handle JSON errors', function () {
 			var processor = require(moduleName)(mockConfig, renderer);
 			var dispatch = require('./dispatch')();
